@@ -20,7 +20,7 @@ void main() {
     final ctr2 = find.text('1');
     expect(ctr2, findsNothing);
 
-    final incrematBtn = find.byType(FloatingActionButton);
+    final incrematBtn = find.byKey(const Key('increment_counter'));
     await tester.tap(incrematBtn);
 
     await tester.pump();
