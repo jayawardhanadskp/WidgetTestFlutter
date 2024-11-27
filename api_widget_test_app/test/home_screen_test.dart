@@ -8,16 +8,18 @@ void main() {
       (tester) async {
     final usres = [
       User(id: 1, name: 'kasun', email: 'kasun@gmail.com'),
-      User(id: 1, name: 'pradeep', email: 'pradeep@gmail.com'),
+      User(id: 2, name: 'pradeep', email: 'pradeep@gmail.com'),
     ];
     Future<List<User>> mockFetchUser() async {
       return usres;
     }
 
-    await tester.pumpWidget( MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: HomeScreen(futureUsers: mockFetchUser()),
     ));
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    await tester.pump();
+    expect(find.byType(ListView), findsOneWidget);
   });
 }
