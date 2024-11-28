@@ -11,7 +11,7 @@ void main() {
       User(id: 2, name: 'pradeep', email: 'pradeep@gmail.com'),
     ];
     Future<List<User>> mockFetchUser() async {
-      return usres;
+      return Future.delayed(const Duration(seconds: 1), () => usres);
     }
 
     await tester.pumpWidget(MaterialApp(
@@ -19,7 +19,13 @@ void main() {
     ));
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    await tester.pump();
+    await tester.pumpAndSettle();
     expect(find.byType(ListView), findsOneWidget);
+    expect(find.byType(ListTile), findsNWidgets(usres.length));
+
+    for (final user in usres) {
+      expect(find.text(user.name), findsOneWidget);
+      expect(find.text(user.email), findsOneWidget);
+    }
   });
 }
