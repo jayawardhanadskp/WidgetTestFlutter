@@ -6,6 +6,15 @@ void main() {
   testWidgets('animation screen test', (tester) async {
     await tester.pumpWidget(const MaterialApp(home: AnimationScreen()));
 
-    expect(find.byType(Container), findsOneWidget);
+    final containerFinder = find.byType(Container);
+    expect(containerFinder, findsOneWidget);
+    final container =
+        tester.widget<Container>(containerFinder); // type container
+    // INITIAL TEST CASES
+    expect(container.constraints!.maxWidth, 50);
+    expect(container.constraints!.maxHeight, 50);
+    expect((container.decoration as BoxDecoration).borderRadius,
+        BorderRadius.zero);
+    expect((container.decoration as BoxDecoration).color, Colors.blue);
   });
 }
